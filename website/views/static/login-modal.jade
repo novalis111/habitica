@@ -26,11 +26,7 @@ script(id='modals/login.html', type='text/ng-template')
     button.close(type='button', ng-click='$close()') ×
     h4.modal-title=env.t('loginAndReg')
   .modal-body(ng-controller='AuthCtrl')
-    ul.list-inline
-      li
-        a.zocial.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')=env.t('loginFacebookAlt')
-      li
-        a.zocial.google(alt="Google", ng-click='socialLogin("google")')=env.t('loginGoogleAlt')
+    // :CHANGED: remove facebook+google logins
     hr
     tabset(justified='true')
       tab(heading=env.t('login'))
