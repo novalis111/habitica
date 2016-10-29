@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM blitznote/debootstrap-amd64:16.04
 
 MAINTAINER Sabe Jones <sabe@habitica.com>
 
@@ -14,7 +14,8 @@ RUN apt-get install -y \
     libfontconfig1 \
     libfreetype6 \
     libkrb5-dev \
-    python
+    python \
+    sudo
 
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
