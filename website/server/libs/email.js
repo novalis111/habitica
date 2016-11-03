@@ -149,7 +149,9 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
     });
   }
 
-  if (IS_PROD && mailingInfoArray.length > 0) {
+  // :MYHABITICA:
+  // if (IS_PROD && mailingInfoArray.length > 0) {
+  if (mailingInfoArray.length > 0) {
     request.post({
       url: `${EMAIL_SERVER.url}/job`,
       auth: {
