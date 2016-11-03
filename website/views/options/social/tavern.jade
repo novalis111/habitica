@@ -23,41 +23,42 @@
 
 
       // Resources
-      .panel.panel-default
-        .panel-heading
-          h3.panel-title=env.t('resources')
-        .panel-body
-          table.table.table-striped
-            tr
-              td
-                a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
-            tr
-              td
-                a(href='https://habitica.com/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601')=env.t('lfgPosts')
-            tr
-              td
-                a(target='_blank', href='https://habitica.com/static/FAQ')=env.t('FAQ')
-            tr
-              td
-                !=env.t('glossary')
-            tr
-              td
-                !=env.t('wikiLink')
-            tr
-              td
-                a(target='_blank', href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html')=env.t('dataTool')
-            tr
-              td
-                a(target='_blank', href='https://habitica.com/#/options/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac')=env.t('reportAP')
-            tr
-              td
-                a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')= ' ' + env.t('requestAF')
-            tr
-              td
-                !=env.t('community')
-            tr
-              td
-                a(target='_blank', href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a')=env.t('askQuestionNewbiesGuild')
+      //- :MYHABITICA: not needed
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title=env.t('resources')
+          .panel-body
+            table.table.table-striped
+              tr
+                td
+                  a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
+              tr
+                td
+                  a(href='https://habitica.com/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601')=env.t('lfgPosts')
+              tr
+                td
+                  a(target='_blank', href='https://habitica.com/static/FAQ')=env.t('FAQ')
+              tr
+                td
+                  !=env.t('glossary')
+              tr
+                td
+                  !=env.t('wikiLink')
+              tr
+                td
+                  a(target='_blank', href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html')=env.t('dataTool')
+              tr
+                td
+                  a(target='_blank', href='https://habitica.com/#/options/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac')=env.t('reportAP')
+              tr
+                td
+                  a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')= ' ' + env.t('requestAF')
+              tr
+                td
+                  !=env.t('community')
+              tr
+                td
+                  a(target='_blank', href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a')=env.t('askQuestionNewbiesGuild')
 
       // Player Tiers
       .panel.panel-default(popover=env.t('tierPop'), popover-trigger="mouseenter", popover-placement="right")
