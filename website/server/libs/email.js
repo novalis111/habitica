@@ -166,8 +166,17 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
     let mailData = {
         from: 'Habitica <'+nconf.get('ADMIN_EMAIL')+'>',
         to: mailingInfoArray[0].email,
-        subject: "PM von "+variables[1].content,
-        text: "Du hast eine neue PM von "+variables[1].content+" erhalten, rufe sie hier ab: "+variables[0].content+variables[2].content,
+    };
+    switch (emailType)
+    {
+        case 'new-pm':
+            mailData.subject = "PM von "+variables[1].content;
+            mailData.text = "Du hast eine neue PM von "+variables[1].content+" erhalten, rufe sie hier ab: "+variables[0].content+variables[2].content;
+            break;
+        default:
+            mailData.subject = "Irgendwas";
+            mailData.text = "Hier fehlt noch ein Text für Typ "+emailType;
+            break;
     };
     smtpTransporter.sendMail(mailData);
  
