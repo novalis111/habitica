@@ -16,17 +16,24 @@ const EMAIL_SERVER = {
 };
 const BASE_URL = nconf.get('BASE_URL');
 
+/* :MYHABITICA: send mails via SMTP
 let smtpTransporter = createTransport({
+  transport: 'smtp',
+  url: nconf.get('SMTP_HOST'),
   service: nconf.get('SMTP_SERVICE'),
   auth: {
     user: nconf.get('SMTP_USER'),
     pass: nconf.get('SMTP_PASS'),
   },
 });
+*/
+let smtpTransporter = createTransport('smtps://'+nconf.get('EMAIL_SERVER:authUser')+':'+nconf.get('EMAIL_SERVER:authPassword')+'@'+nconf.get('EMAIL_SERVER:url'));
 
 // Send email directly from the server using the smtpTransporter,
 // used only to send password reset emails because users unsubscribed on Mandrill wouldn't get them
 export function send (mailData) {
+  // logger.error(mailData);
+  // logger.error(smtpTransporter);
   return smtpTransporter.sendMail(mailData); // promise
 }
 
