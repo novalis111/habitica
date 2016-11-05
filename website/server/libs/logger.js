@@ -13,6 +13,9 @@ const ENABLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
 
 const logger = new winston.Logger();
 
+// :MYHABITICA:
+const ENABLE_FILE_LOG = nconf.get('ENABLE_FILE_LOG') === 'true';
+
 if (IS_PROD) {
   if (ENABLE_LOGS_IN_PROD) {
     logger.add(winston.transports.Console, {
@@ -28,6 +31,16 @@ if (IS_PROD) {
       colorize: true,
       prettyPrint: true,
     });
+}
+
+// :MYHABITICA: log to file
+if (ENABLE_FILE_LOG) {
+  logger.add(winston.transports.File, {
+    timestamp: true,
+    colorize: false,
+    prettyPrint: true,
+    filename: 'myhabitica.log'
+  });
 }
 
 // exports a public interface insteaf of accessing directly the logger module
