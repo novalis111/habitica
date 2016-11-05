@@ -531,7 +531,7 @@ api.resetPassword = {
       user.auth.local.salt = salt;
       user.auth.local.hashed_password = hashedPassword; // eslint-disable-line camelcase
       sendEmail({
-        from: 'Habitica <admin@habitica.com>',
+        from: 'Habitica <' + nconf.get('ADMIN_EMAIL') + '>',
         to: email,
         subject: res.t('passwordResetEmailSubject'),
         text: res.t('passwordResetEmailText', { username: user.auth.local.username,
