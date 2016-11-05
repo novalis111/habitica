@@ -27,7 +27,7 @@ let smtpTransporter = createTransport({
   },
 });
 */
-let smtpTransporter = createTransport('smtps://'+nconf.get('EMAIL_SERVER:authUser')+':'+nconf.get('EMAIL_SERVER:authPassword')+'@'+nconf.get('EMAIL_SERVER:url'));
+let smtpTransporter = createTransport('smtps://'+nconf.get('SMTP_USER')+':'+nconf.get('SMTP_PASS')+'@'+nconf.get('SMTP_HOST'));
 
 // Send email directly from the server using the smtpTransporter,
 // used only to send password reset emails because users unsubscribed on Mandrill wouldn't get them
@@ -156,9 +156,31 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
     });
   }
 
-  // :MYHABITICA:
-  // if (IS_PROD && mailingInfoArray.length > 0) {
-  if (mailingInfoArray.length > 0) {
+    // :MYHABITICA: send via SMTP (not Mandrill/Mailchimp)
+    /*
+    logger.error(emailType);
+    logger.error(mailingInfoArray);
+    logger.error(variables);
+    logger.error(personalVariables);
+    */
+    let mailData = {
+        from: 'Habitica <'+nconf.get('ADMIN_EMAIL')+'>',
+        to: mailingInfoArray[0].email,
+    };
+    switch (emailType)
+    {
+        case 'new-pm':
+            mailData.subject = "PM von "+variables[1].content;
+            mailData.text = "Du hast eine neue PM von "+variables[1].content+" erhalten, rufe sie hier ab: "+variables[0].content+variables[2].content;
+            break;
+        default:
+            mailData.subject = "Irgendwas";
+            mailData.text = "Hier fehlt noch ein Text für Typ "+emailType;
+            break;
+    };
+    smtpTransporter.sendMail(mailData);
+ 
+   if (IS_PROD && mailingInfoArray.length > 0) {
     request.post({
       url: `${EMAIL_SERVER.url}/job`,
       auth: {
