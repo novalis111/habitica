@@ -13,9 +13,6 @@ const ENABLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
 
 const logger = new winston.Logger();
 
-// :MYHABITICA:
-const ENABLE_FILE_LOG = nconf.get('ENABLE_FILE_LOG') === 'true';
-
 if (IS_PROD) {
   if (ENABLE_LOGS_IN_PROD) {
     logger.add(winston.transports.Console, {
@@ -34,6 +31,7 @@ if (IS_PROD) {
 }
 
 // :MYHABITICA: log to file
+const ENABLE_FILE_LOG = nconf.get('ENABLE_FILE_LOG') === 'true';
 if (ENABLE_FILE_LOG) {
   logger.add(winston.transports.File, {
     timestamp: true,
