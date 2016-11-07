@@ -157,18 +157,28 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
   }
 
     // :MYHABITICA: send via SMTP (not Mandrill/Mailchimp)
-    /*
-    logger.error(emailType);
-    logger.error(mailingInfoArray);
-    logger.error(variables);
-    logger.error(personalVariables);
-    */
+    if (nconf.get('ENABLE_FILE_LOG') === 'true') {
+      logger.error(emailType);
+      logger.error(mailingInfoArray);
+      logger.error(variables);
+      logger.error(personalVariables);
+    }
     let mailData = {
         from: 'Habitica <'+nconf.get('ADMIN_EMAIL')+'>',
         to: mailingInfoArray[0].email,
     };
     switch (emailType)
     {
+        case 'welcome':
+            mailData.subject = "Willkommen in Habitica";
+            mailData.text = "Danke für deine Registrierung auf "+variables[0].content;
+            break;
+        case 'invited-party':
+            mailData.subject = "Du wurdest in eine Gruppe eingeladen";
+            mailData.text = "Du wurdest von "+variables[1].content+" in die Gruppe "+variables[2].content
+              +" eingeladen.\n\nBitte besuche diese Adresse zum Beitreten oder Ablehnen: "
+              + variables[0].content + variables[3].content;
+            break;
         case 'new-pm':
             mailData.subject = "PM von "+variables[1].content;
             mailData.text = "Du hast eine neue PM von "+variables[1].content+" erhalten, rufe sie hier ab: "+variables[0].content+variables[2].content;
@@ -179,7 +189,7 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
             break;
     };
     smtpTransporter.sendMail(mailData);
- 
+
    if (IS_PROD && mailingInfoArray.length > 0) {
     request.post({
       url: `${EMAIL_SERVER.url}/job`,
