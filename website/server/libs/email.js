@@ -183,7 +183,13 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
             mailData.subject = "PM von "+variables[1].content;
             mailData.text = "Du hast eine neue PM von "+variables[1].content+" erhalten, rufe sie hier ab: "+variables[0].content+variables[2].content;
             break;
-        default:
+        case 'gifted-gems':
+            mailData.subject = "Du hast Edelsteine von " + variables[1].content + " geschenkt bekommen";
+            mailData.text = "Du hast " + variables[2].content + " Edelsteine von " + variables[1].content
+              + " geschenkt bekommen!\n\nKlicke hier um sie auszugeben:\n"
+              + variables[0].content;
+            break;
+      default:
             mailData.subject = "Irgendwas";
             mailData.text = "Hier fehlt noch ein Text für Typ "+emailType;
             break;
