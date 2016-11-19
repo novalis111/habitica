@@ -4,7 +4,8 @@ import path from 'path';
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
-const MAX_AGE = IS_PROD ? 31536000000 : 0;
+/* :MYHABITICA: Use max_age in dev mode (instead of 0) */
+const MAX_AGE = IS_PROD ? 31536000000 : 31536000;
 const ASSETS_DIR = path.join(__dirname, '/../../assets');
 const PUBLIC_DIR = path.join(__dirname, '/../../client-old');
 const BUILD_DIR = path.join(__dirname, '/../../build');
