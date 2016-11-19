@@ -158,14 +158,17 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
 
     // :MYHABITICA: send via SMTP (not Mandrill/Mailchimp)
     if (nconf.get('ENABLE_FILE_LOG') === 'true') {
+      logger.error('emailType');
       logger.error(emailType);
+      logger.error('mailingInfoArray');
       logger.error(mailingInfoArray);
+      logger.error('variables');
       logger.error(variables);
+      logger.error('personalVariables');
       logger.error(personalVariables);
     }
     let mailData = {
         from: 'Habitica <'+nconf.get('ADMIN_EMAIL')+'>',
-        to: mailingInfoArray[0].email,
     };
     switch (emailType)
     {
@@ -189,12 +192,20 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
               + " geschenkt bekommen!\n\nKlicke hier um sie auszugeben:\n"
               + variables[0].content;
             break;
+        case 'invite-boss-quest':
+            mailData.subject = "Einladung zum Boss-Quest";
+            mailData.text = "Du wurdest von " +  variables[2].content + " zu einem Boss-Quest '" + variables[1].content + "' eingeladen.\n\n"
+            + "Bitte besuche diese Adresse zum Beitreten oder Ablehnen: " + variables[0].content + variables[3].content;
+            break;
       default:
             mailData.subject = "Irgendwas";
-            mailData.text = "Hier fehlt noch ein Text für Typ "+emailType;
+            mailData.text = "Hier fehlt noch ein Text für Typ " + emailType;
             break;
     };
-    smtpTransporter.sendMail(mailData);
+    for (var i = 0; i < mailingInfoArray.length; i++) {
+        mailData.to = mailingInfoArray[i].email;
+        smtpTransporter.sendMail(mailData);
+    }
 
    if (IS_PROD && mailingInfoArray.length > 0) {
     request.post({
