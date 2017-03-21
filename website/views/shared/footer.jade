@@ -31,8 +31,6 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='http://blog.habitrpg.com/')=env.t('tumblr')
           li
-            !=env.t('companyExtensions')
-          li
             a(href='/static/faq/')=env.t('FAQ')
           li
             a(href='/static/old-news')=env.t('oldNews')
@@ -95,7 +93,6 @@ footer.footer(ng-controller='FooterCtrl')
               tr
                 td
                   iframe(src='/bower_components/github-buttons/github-btn.html?user=habitrpg&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
-
       //- :MYHABITICA: only need gems + gold + admin sometimes
       if (env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
           div
